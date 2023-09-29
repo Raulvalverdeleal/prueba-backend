@@ -1,6 +1,9 @@
 const express = require("express");
+const cors = require("cors")
 let puerto = process.env.PORT || 4000;
 const servidor = express();
+
+servidor.use(cors())
 
 servidor.use("/prueba",express.static("./estaticos"))
 
@@ -13,6 +16,5 @@ servidor.use((peticion,respuesta) => {
 	respuesta.status(404);
 	respuesta.send("not found...")
 })
-
 
 servidor.listen(puerto);
