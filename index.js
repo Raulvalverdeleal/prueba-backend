@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors")
+const {colores} = require("./configuracion");
 let puerto = process.env.PORT || 4000;
 const servidor = express();
 
@@ -7,8 +8,10 @@ servidor.use(cors())
 
 servidor.use("/prueba",express.static("./estaticos"))
 
-servidor.get("/",(peticion,respuesta) => {
-	let [r,g,b] = [0,0,0].map(() => Math.floor(Math.random() * 256));
+servidor.get("/", async (peticion,respuesta) => {
+	let resultado = await colores("paleta-2")
+	let {r,g,b} = resultado[Math.floor(Math.random() * resultado.length)]
+	console.log(r,g,b)
 	respuesta.json({r,g,b});
 })
 
